@@ -14,7 +14,7 @@ import org.thymeleaf.processor.element.IElementModelStructureHandler;
 import org.thymeleaf.templatemode.TemplateMode;
 
 /**
- * Allows adding the Vite HMR client in the <head> of the HTML. Example:
+ * Allows adding the Vite HMR client in the &lt;head&gt; of the HTML. Example:
  *
  * <pre>{@code
  * <head>
