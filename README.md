@@ -47,9 +47,9 @@ To release a new version of the project, follow these steps:
 1. Update `pom.xml` with the new version (Use `mvn versions:set -DgenerateBackupPoms=false -DnewVersion=<VERSION>`)
 2. Commit the changes locally.
 3. Tag the commit with the version (e.g. `1.0.0`) and push the tag.
-4. Create a new release in GitHub via https://github.com/wimdeblauwe/htmx-spring-boot/releases/new
+4. Create a new release in GitHub via https://github.com/wimdeblauwe/vite-spring-boot/releases/new
     - Select the newly pushed tag
     - Update the release notes. This should automatically start
-      the [release action](https://github.com/wimdeblauwe/htmx-spring-boot-thymeleaf/actions).
+      the [release action](https://github.com/wimdeblauwe/vite-spring-boot/actions).
 5. Update `pom.xml` again with the next `SNAPSHOT` version.
 6. Close the milestone in the GitHub issue tracker.
