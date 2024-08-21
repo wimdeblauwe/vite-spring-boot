@@ -1,16 +1,17 @@
 package io.github.wimdeblauwe.vite.spring.boot;
 
 
-import static io.github.wimdeblauwe.vite.spring.boot.ViteDevServerConfigurationProperties.PREFIX;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Map;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Map;
+
+import static io.github.wimdeblauwe.vite.spring.boot.ViteDevServerConfigurationProperties.PREFIX;
 
 /**
  * This ApplicationContextInializer will automatically set the property values of {@link ViteDevServerConfigurationProperties}
@@ -24,7 +25,7 @@ public class ViteServerConfigurationPropertiesContextInitializer implements Appl
   @Override
   public void initialize(ConfigurableApplicationContext applicationContext) {
     try {
-      Path path = Path.of("target/vite-plugin-spring-boot/server-config.json");
+      Path path = Path.of("target/vite-plugin-spring-boot/dev-server-config.json");
       ObjectMapper objectMapper = new ObjectMapper();
       Map map = objectMapper.readValue(path.toFile(), Map.class);
 
