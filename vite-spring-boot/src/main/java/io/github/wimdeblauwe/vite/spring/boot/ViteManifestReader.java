@@ -25,7 +25,8 @@ public class ViteManifestReader {
   private final ObjectMapper objectMapper;
   private Map<String, ManifestEntry> manifest;
 
-  public ViteManifestReader(ResourceLoader resourceLoader, ObjectMapper objectMapper) {
+  public ViteManifestReader(ResourceLoader resourceLoader,
+                            ObjectMapper objectMapper) {
     this.resourceLoader = resourceLoader;
     this.objectMapper = objectMapper;
   }
@@ -44,12 +45,12 @@ public class ViteManifestReader {
   }
 
   public String getBundledPath(String originalPath) {
-    ManifestEntry entry = manifest.get(originalPath);
+    ManifestEntry entry = getManifestEntry(originalPath);
     return entry != null ? entry.file() : null;
   }
 
   public ManifestEntry getManifestEntry(String resource) {
-    return manifest.get(resource);
+    return manifest != null ? manifest.get(resource) : null;
   }
 
   public record ManifestEntry(String file, String src, boolean isEntry, List<String> css, List<String> imports) {
