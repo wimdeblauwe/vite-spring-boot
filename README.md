@@ -12,6 +12,7 @@ on the frontend.
 When using Thymeleaf:
 
 ```xml
+
 <dependency>
     <groupId>io.github.wimdeblauwe</groupId>
     <artifactId>vite-spring-boot-thymeleaf</artifactId>
@@ -19,16 +20,46 @@ When using Thymeleaf:
 </dependency>
 ```
 
-Other templating engines are currently not supported, but you can use the classes in `vite-spring-boot` as those do not depend on Thymeleaf to build support.
+Other templating engines are currently not supported, but you can use the classes in `vite-spring-boot` as those do not
+depend on Thymeleaf to build support.
 Use the following dependency in that case:
 
 ```xml
+
 <dependency>
     <groupId>io.github.wimdeblauwe</groupId>
     <artifactId>vite-spring-boot</artifactId>
     <version>LATEST_VERSION_HERE</version>
 </dependency>
 ```
+
+## Usage
+
+### Hot Module Reload client
+
+Vite needs the HMR client rendered when running in DEV mode.
+This library exposes the `<vite:client>` tag to conditionally render the HMR depending on the value of the `vite.mode`
+application configuration setting.
+
+If the mode is `DEV`, then the HMR client is rendered. If it is `BUILD` then nothing is rendered.
+
+### Vite entry points
+
+Any CSS or JavaScript that is used in the Spring Boot application needs to be added to the list of entrypoints. The
+`<vite:vite>` and `<vite:entry>` tags can be used for this.
+
+For example:
+
+```html
+
+<vite:vite>
+   <vite:entry value="/css/application.css"></vite:entry>
+</vite:vite>
+```
+
+When running in DEV mode, this will point to the HMR server of Vite so live reloading works.
+When running in BUILD mode, the manifest JSON that Vite generates is read and the links to the compiled assets are
+generated.
 
 ## Contributing
 
