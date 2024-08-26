@@ -7,6 +7,10 @@ It must be used together with
 the [vite-plugin-spring-boot](https://www.npmjs.com/package/@wim.deblauwe/vite-plugin-spring-boot)
 on the frontend.
 
+> [!TIP]
+> The easiest way to generate a working setup is to generate the Spring Boot project
+> using [ttcli](https://github.com/wimdeblauwe/ttcli).
+
 ## Maven configuration
 
 When using Thymeleaf:
