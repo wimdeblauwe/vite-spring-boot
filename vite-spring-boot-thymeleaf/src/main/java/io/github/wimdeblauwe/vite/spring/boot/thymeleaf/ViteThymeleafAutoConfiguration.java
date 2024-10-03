@@ -34,7 +34,7 @@ public class ViteThymeleafAutoConfiguration {
   }
 
   @Bean
-  public ViteManifestReader viteManifestReader(ResourceLoader resourceLoader, ObjectMapper objectMapper) {
-    return new ViteManifestReader(resourceLoader, objectMapper);
+  public ViteManifestReader viteManifestReader(ResourceLoader resourceLoader, ObjectMapper objectMapper, ViteConfigurationProperties properties) {
+    return new ViteManifestReader(resourceLoader, objectMapper, properties);
   }
 }

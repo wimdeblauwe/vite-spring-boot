@@ -23,24 +23,31 @@ public class ViteManifestReader {
 
   private final ResourceLoader resourceLoader;
   private final ObjectMapper objectMapper;
+  private final ViteConfigurationProperties configurationProperties;
   private Map<String, ManifestEntry> manifest;
 
   public ViteManifestReader(ResourceLoader resourceLoader,
-                            ObjectMapper objectMapper) {
+                            ObjectMapper objectMapper,
+                            ViteConfigurationProperties configurationProperties) {
     this.resourceLoader = resourceLoader;
     this.objectMapper = objectMapper;
+    this.configurationProperties = configurationProperties;
   }
 
   @PostConstruct
   public void init() throws IOException {
-    Resource resource = resourceLoader.getResource("classpath:/static/.vite/manifest.json");
-    if (resource.exists()) {
-      try (InputStream inputStream = resource.getInputStream()) {
-        MapType type = objectMapper.getTypeFactory().constructMapType(Map.class, String.class, ManifestEntry.class);
-        manifest = objectMapper.readValue(inputStream, type);
+    if (configurationProperties.mode() == ViteConfigurationProperties.Mode.BUILD) {
+      Resource resource = resourceLoader.getResource("classpath:/static/.vite/manifest.json");
+      if (resource.exists()) {
+        try (InputStream inputStream = resource.getInputStream()) {
+          MapType type = objectMapper.getTypeFactory().constructMapType(Map.class, String.class, ManifestEntry.class);
+          manifest = objectMapper.readValue(inputStream, type);
+        }
+      } else {
+        LOGGER.warn("Production mode - Could not find vite-manifest.json. Run `npm run build` to generate it. (Or switch to development mode by setting `vite.mode=dev`)");
       }
     } else {
-      LOGGER.debug("Could not find vite-manifest.json. Run `npm run build` to generate it.");
+      LOGGER.debug("Mode is not BUILD, not reading manifest.json");
     }
   }
 
