@@ -45,7 +45,28 @@ Vite needs the HMR client rendered when running in DEV mode.
 This library exposes the `<vite:client>` tag to conditionally render the HMR depending on the value of the `vite.mode`
 application configuration setting.
 
+For example:
+
+```html
+
+<vite:client></vite:client>
+```
+
 If the mode is `DEV`, then the HMR client is rendered. If it is `BUILD` then nothing is rendered.
+
+### React components and Hot Module Reload
+
+If you want to add React componets on your Thymeleaf page, then you need to something extra to make the HMR work. You
+need the `<vite:react-refresh>` on your page.
+
+For example:
+
+```html
+
+<vite:react-refresh></vite:react-refresh>
+```
+
+If the mode is `DEV`, then the extra code is rendered. If it is `BUILD` then nothing is rendered.
 
 ### Vite entry points
 
@@ -55,7 +76,6 @@ Any CSS or JavaScript that is used in the Spring Boot application needs to be ad
 For example:
 
 ```html
-
 <vite:vite>
    <vite:entry value="/css/application.css"></vite:entry>
 </vite:vite>
@@ -64,6 +84,10 @@ For example:
 When running in DEV mode, this will point to the HMR server of Vite so live reloading works.
 When running in BUILD mode, the manifest JSON that Vite generates is read and the links to the compiled assets are
 generated.
+
+> [!IMPORTANT]  
+> If you add an entry point here, you also need to add it to your `vite.config.js`, otherwise the production build will
+> not pick it up!
 
 ## Contributing
 
