@@ -6,10 +6,10 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +21,12 @@ public class ViteManifestReader {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ViteManifestReader.class);
 
-  private final ResourceLoader resourceLoader;
   private final ObjectMapper objectMapper;
   private final ViteConfigurationProperties configurationProperties;
   private Map<String, ManifestEntry> manifest;
 
-  public ViteManifestReader(ResourceLoader resourceLoader,
-                            ObjectMapper objectMapper,
+  public ViteManifestReader(ObjectMapper objectMapper,
                             ViteConfigurationProperties configurationProperties) {
-    this.resourceLoader = resourceLoader;
     this.objectMapper = objectMapper;
     this.configurationProperties = configurationProperties;
   }
@@ -37,7 +34,7 @@ public class ViteManifestReader {
   @PostConstruct
   public void init() throws IOException {
     if (configurationProperties.mode() == ViteConfigurationProperties.Mode.BUILD) {
-      Resource resource = resourceLoader.getResource("classpath:/static/.vite/manifest.json");
+      Resource resource = configurationProperties.manifest();
       if (resource.exists()) {
         try (InputStream inputStream = resource.getInputStream()) {
           MapType type = objectMapper.getTypeFactory().constructMapType(Map.class, String.class, ManifestEntry.class);
@@ -61,6 +58,12 @@ public class ViteManifestReader {
   }
 
   public record ManifestEntry(String file, String src, boolean isEntry, List<String> css, List<String> imports) {
-
+    public ManifestEntry(String file, String src, boolean isEntry, List<String> css, List<String> imports) {
+      this.file = file;
+      this.src = src;
+      this.isEntry = isEntry;
+      this.css = css != null ? css : Collections.emptyList();
+      this.imports = imports != null ? imports : Collections.emptyList();
+    }
   }
 }
