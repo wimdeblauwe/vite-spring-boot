@@ -12,7 +12,9 @@ import org.thymeleaf.processor.element.IElementModelStructureHandler;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Allows adding the entrypoints to your HTML. For example:
@@ -37,7 +39,7 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
   private final ViteLinkResolver linkResolver;
 
   public ViteTagProcessor(String dialectPrefix,
-      ViteLinkResolver linkResolver) {
+                          ViteLinkResolver linkResolver) {
     super(TemplateMode.HTML, dialectPrefix, TAG_NAME, true, null, false, PRECEDENCE);
     this.linkResolver = linkResolver;
   }
@@ -60,6 +62,7 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
 
     private final TagFactory tagFactory;
     private final List<ITemplateEvent> htmlEntries = new ArrayList<>();
+    private final Set<String> references = new HashSet<>();
 
     public ViteModelVisitor(IModelFactory modelFactory) {
       this.tagFactory = new TagFactory(modelFactory);
@@ -86,16 +89,18 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
     private void handleValue(String value) {
       LOGGER.debug("resolving {}", value);
       if (isCssPath(value)) {
-        htmlEntries.add(tagFactory.generateCssLinkTag(linkResolver.resolveResource(value)));
+        executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(linkResolver.resolveResource(value))));
       } else {
-        ScriptTags scriptTags = tagFactory.generateScriptTags(linkResolver.resolveResource(value));
-        scriptTags.addTagsTo(htmlEntries);
+        executeIfNotOutputtedYet(value, () -> {
+          ScriptTags scriptTags = tagFactory.generateScriptTags(linkResolver.resolveResource(value));
+          scriptTags.addTagsTo(htmlEntries);
+        });
       }
       ManifestEntry manifestEntry = linkResolver.getManifestEntry(value);
       if (manifestEntry != null) {
         if (manifestEntry.css() != null) {
           for (String linkedCss : manifestEntry.css()) {
-            htmlEntries.add(tagFactory.generateCssLinkTag(linkResolver.resolveResource(linkedCss)));
+            executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(linkResolver.resolveResource(linkedCss))));
           }
         }
 
@@ -110,17 +115,19 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
     private void handleImportedResource(String importedResource) {
       LOGGER.debug("Handling imported resource: {}", importedResource);
       ManifestEntry manifestEntry = linkResolver.getManifestEntry(importedResource);
-      String file = manifestEntry.file();
+      String file = "/" + manifestEntry.file();
       if (isCssPath(file)) {
-        htmlEntries.add(tagFactory.generateCssLinkTag(file));
+        executeIfNotOutputtedYet(file, () -> htmlEntries.add(tagFactory.generateCssLinkTag(file)));
       } else {
-        ScriptTags scriptTags = tagFactory.generateScriptTags(file);
-        scriptTags.addTagsTo(htmlEntries);
+        executeIfNotOutputtedYet(file, () -> {
+          ScriptTags scriptTags = tagFactory.generateScriptTags(file);
+          scriptTags.addTagsTo(htmlEntries);
+        });
       }
 
       if (manifestEntry.css() != null) {
         for (String linkedCss : manifestEntry.css()) {
-          htmlEntries.add(tagFactory.generateCssLinkTag(linkedCss));
+          executeIfNotOutputtedYet(linkedCss, () -> htmlEntries.add(tagFactory.generateCssLinkTag(linkedCss)));
         }
       }
 
@@ -128,6 +135,13 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
         for (String nestedImportedResource : manifestEntry.imports()) {
           handleImportedResource(nestedImportedResource);
         }
+      }
+    }
+
+    private void executeIfNotOutputtedYet(String value, Runnable runnable) {
+      boolean wasAdded = references.add(value);
+      if (wasAdded) {
+        runnable.run();
       }
     }
   }
