@@ -31,7 +31,14 @@ class ViteLinkResolverTest {
     void testResolveResourceInBuildMode() throws IOException {
       ViteLinkResolver resolver = createLinkResolver(ViteConfigurationProperties.Mode.BUILD);
       String resource = resolver.resolveResource("css/application.css");
-      assertThat(resource).isEqualTo("assets/application-BJA3xOLB.css");
+      assertThat(resource).isEqualTo("/assets/application-BJA3xOLB.css");
+    }
+
+    @Test
+    void testResolveResourceInBuildModeWithSlashPrefix() throws IOException {
+      ViteLinkResolver resolver = createLinkResolver(ViteConfigurationProperties.Mode.BUILD);
+      String resource = resolver.resolveResource("/css/application.css");
+      assertThat(resource).isEqualTo("/assets/application-BJA3xOLB.css");
     }
   }
 

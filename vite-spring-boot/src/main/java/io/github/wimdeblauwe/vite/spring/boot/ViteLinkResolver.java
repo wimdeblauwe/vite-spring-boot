@@ -33,7 +33,7 @@ public class ViteLinkResolver {
       return devServerProperties.baseUrl() + "/"
              + prependWithStatic(resource);
     } else {
-      return manifestReader.getBundledPath(prependWithStatic(resource));
+      return "/" + manifestReader.getBundledPath(prependWithStatic(resource));
     }
   }
 
