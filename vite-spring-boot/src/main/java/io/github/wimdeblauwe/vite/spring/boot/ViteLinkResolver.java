@@ -3,6 +3,7 @@ package io.github.wimdeblauwe.vite.spring.boot;
 
 import io.github.wimdeblauwe.vite.spring.boot.ViteConfigurationProperties.Mode;
 import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader.ManifestEntry;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,15 +26,22 @@ public class ViteLinkResolver {
     this.manifestReader = manifestReader;
   }
 
-  public String resolveResource(String resource) {
+  public Optional<String> resolveResource(String resource) {
     if (properties.mode() == Mode.DEV) {
       if (devServerProperties.host() == null) {
-        LOGGER.warn("vite-dev-server-config.host has not been set - Please run `npm run dev` and restart the application to properly resolve resource {}", resource);
+        LOGGER.warn("vite-dev-server-config.host has not been set - "
+                + "Please run `npm run dev` and restart the application to properly resolve resource {}",
+            resource);
       }
-      return devServerProperties.baseUrl() + "/"
-             + prependWithStatic(resource);
+      return Optional.of(devServerProperties.baseUrl() + "/" + prependWithStatic(resource));
     } else {
-      return "/" + manifestReader.getBundledPath(prependWithStatic(resource));
+      String bundledPath = manifestReader.getBundledPath(prependWithStatic(resource));
+      if (bundledPath == null) {
+        LOGGER.warn("Could not resolve resource {} - Did you add it to vite.config.js?", resource);
+        return Optional.empty();
+      }
+
+      return Optional.of("/" + bundledPath);
     }
   }
 

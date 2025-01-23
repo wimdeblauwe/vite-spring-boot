@@ -2,6 +2,7 @@ package io.github.wimdeblauwe.vite.spring.boot;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +24,22 @@ class ViteLinkResolverTest {
     @Test
     void testResolveResourceInDevMode() throws IOException {
       ViteLinkResolver resolver = createLinkResolver(ViteConfigurationProperties.Mode.DEV);
-      String resource = resolver.resolveResource("css/application.css");
-      assertThat(resource).isEqualTo("//localhost:5173/static/css/application.css");
+      Optional<String> resource = resolver.resolveResource("css/application.css");
+      assertThat(resource).hasValueSatisfying( it -> assertThat(it).isEqualTo("//localhost:5173/static/css/application.css"));
     }
 
     @Test
     void testResolveResourceInBuildMode() throws IOException {
       ViteLinkResolver resolver = createLinkResolver(ViteConfigurationProperties.Mode.BUILD);
-      String resource = resolver.resolveResource("css/application.css");
-      assertThat(resource).isEqualTo("/assets/application-BJA3xOLB.css");
+      Optional<String> resource = resolver.resolveResource("css/application.css");
+      assertThat(resource).hasValueSatisfying( it -> assertThat(it).isEqualTo("/assets/application-BJA3xOLB.css"));
     }
 
     @Test
     void testResolveResourceInBuildModeWithSlashPrefix() throws IOException {
       ViteLinkResolver resolver = createLinkResolver(ViteConfigurationProperties.Mode.BUILD);
-      String resource = resolver.resolveResource("/css/application.css");
-      assertThat(resource).isEqualTo("/assets/application-BJA3xOLB.css");
+      Optional<String> resource = resolver.resolveResource("/css/application.css");
+      assertThat(resource).hasValueSatisfying( it -> assertThat(it).isEqualTo("/assets/application-BJA3xOLB.css"));
     }
   }
 
