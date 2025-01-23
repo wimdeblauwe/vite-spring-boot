@@ -3,18 +3,22 @@ package io.github.wimdeblauwe.vite.spring.boot.thymeleaf;
 import io.github.wimdeblauwe.vite.spring.boot.ViteLinkResolver;
 import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader.ManifestEntry;
 import io.github.wimdeblauwe.vite.spring.boot.thymeleaf.TagFactory.ScriptTags;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.thymeleaf.context.ITemplateContext;
-import org.thymeleaf.model.*;
-import org.thymeleaf.processor.element.AbstractElementModelProcessor;
-import org.thymeleaf.processor.element.IElementModelStructureHandler;
-import org.thymeleaf.templatemode.TemplateMode;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.thymeleaf.context.ITemplateContext;
+import org.thymeleaf.model.AbstractModelVisitor;
+import org.thymeleaf.model.IAttribute;
+import org.thymeleaf.model.IModel;
+import org.thymeleaf.model.IModelFactory;
+import org.thymeleaf.model.IOpenElementTag;
+import org.thymeleaf.model.ITemplateEvent;
+import org.thymeleaf.processor.element.AbstractElementModelProcessor;
+import org.thymeleaf.processor.element.IElementModelStructureHandler;
+import org.thymeleaf.templatemode.TemplateMode;
 
 /**
  * Allows adding the entrypoints to your HTML. For example:
@@ -39,7 +43,7 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
   private final ViteLinkResolver linkResolver;
 
   public ViteTagProcessor(String dialectPrefix,
-                          ViteLinkResolver linkResolver) {
+      ViteLinkResolver linkResolver) {
     super(TemplateMode.HTML, dialectPrefix, TAG_NAME, true, null, false, PRECEDENCE);
     this.linkResolver = linkResolver;
   }
@@ -75,6 +79,7 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
     @Override
     public void visit(IOpenElementTag openElementTag) {
       String elementName = openElementTag.getElementDefinition().getElementName().getElementName();
+      //noinspection StatementWithEmptyBody
       if (elementName.equals(TAG_NAME)) {
         // no-op
       } else if (elementName.equals(ENTRY_TAG_NAME)) {
@@ -89,18 +94,27 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
     private void handleValue(String value) {
       LOGGER.debug("resolving {}", value);
       if (isCssPath(value)) {
-        executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(linkResolver.resolveResource(value))));
+        linkResolver.resolveResource(value)
+            .ifPresent(resource -> {
+              executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resource)));
+            });
       } else {
         executeIfNotOutputtedYet(value, () -> {
-          ScriptTags scriptTags = tagFactory.generateScriptTags(linkResolver.resolveResource(value));
-          scriptTags.addTagsTo(htmlEntries);
+          linkResolver.resolveResource(value)
+              .ifPresent(resource -> {
+                ScriptTags scriptTags = tagFactory.generateScriptTags(resource);
+                scriptTags.addTagsTo(htmlEntries);
+              });
         });
       }
       ManifestEntry manifestEntry = linkResolver.getManifestEntry(value);
       if (manifestEntry != null) {
         if (manifestEntry.css() != null) {
           for (String linkedCss : manifestEntry.css()) {
-            executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(linkResolver.resolveResource(linkedCss))));
+            linkResolver.resolveResource(linkedCss)
+                    .ifPresent(resource -> {
+                      executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resource)));
+                    });
           }
         }
 
