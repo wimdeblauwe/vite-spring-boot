@@ -35,7 +35,7 @@ class ViteTagProcessorTest {
     templateEngine.setTemplateResolver(templateResolver);
 
     ViteConfigurationProperties properties = new ViteConfigurationProperties(ViteConfigurationProperties.Mode.BUILD,
-            new ClassPathResource("vite-manifest-example.json"));
+            new ClassPathResource("vite-manifest-example.json"), null);
     ViteDevServerConfigurationProperties devServerConfigurationProperties = new ViteDevServerConfigurationProperties("localhost", 5431);
 
     ObjectMapper objectMapper = new ObjectMapper()
