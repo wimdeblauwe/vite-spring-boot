@@ -4,11 +4,14 @@ package io.github.wimdeblauwe.vite.spring.boot;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
@@ -27,7 +30,7 @@ public class ViteServerConfigurationPropertiesContextInitializer implements Appl
   @Override
   public void initialize(ConfigurableApplicationContext applicationContext) {
     try {
-      Path path = Path.of("target/vite-plugin-spring-boot/dev-server-config.json");
+      Path path = getDevServerConfigFilePath(applicationContext);
       if (path.toFile().exists()) {
         ObjectMapper objectMapper = new ObjectMapper();
         Map map = objectMapper.readValue(path.toFile(), Map.class);
@@ -45,5 +48,21 @@ public class ViteServerConfigurationPropertiesContextInitializer implements Appl
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private static Path getDevServerConfigFilePath(ConfigurableApplicationContext applicationContext) {
+    ConfigurableEnvironment environment = applicationContext.getEnvironment();
+    ViteConfigurationProperties properties = Binder.get(environment).bind("vite", ViteConfigurationProperties.class).orElse(null);
+    if( properties != null && properties.devServerConfigFileLocation() != null ) {
+      return properties.devServerConfigFileLocation();
+    }
+    return Path.of(getDefaultOutputDirectory(), "dev-server-config.json");
+  }
+
+  private static String getDefaultOutputDirectory() {
+    if (new File("pom.xml").exists()) {
+      return "target/vite-plugin-spring-boot";
+    }
+    return "build/vite-plugin-spring-boot";
   }
 }
