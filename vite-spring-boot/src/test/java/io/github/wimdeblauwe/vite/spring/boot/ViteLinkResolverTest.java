@@ -44,6 +44,23 @@ class ViteLinkResolverTest {
   }
 
   @Nested
+  class ResolveResourceWithCustomContextPathTests {
+    @Test
+    void testResolveResourceInDevMode() throws IOException {
+      ViteLinkResolver resolver = createLinkResolverWithCustomContextPaths(ViteConfigurationProperties.Mode.DEV);
+      Optional<String> resource = resolver.resolveResource("css/application.css");
+      assertThat(resource).hasValueSatisfying( it -> assertThat(it).isEqualTo("//localhost:5173/dev-context/static/css/application.css"));
+    }
+
+    @Test
+    void testResolveResourceInBuildMode() throws IOException {
+      ViteLinkResolver resolver = createLinkResolverWithCustomContextPaths(ViteConfigurationProperties.Mode.BUILD);
+      Optional<String> resource = resolver.resolveResource("css/application.css");
+      assertThat(resource).hasValueSatisfying( it -> assertThat(it).isEqualTo("/build-context/assets/application-BJA3xOLB.css"));
+    }
+  }
+
+  @Nested
   class GetManifestEntryTests {
     @Test
     void testDirectMatch() throws IOException {
@@ -61,7 +78,20 @@ class ViteLinkResolverTest {
   }
 
   private ViteLinkResolver createLinkResolver(ViteConfigurationProperties.Mode mode) throws IOException {
-    ViteConfigurationProperties properties = new ViteConfigurationProperties(mode, new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"), null);
+    ViteConfigurationProperties properties = new ViteConfigurationProperties(mode, new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"), null, null, null);
+    ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
+    manifestReader.init();
+    return new ViteLinkResolver(properties,
+            new ViteDevServerConfigurationProperties("localhost", 5173),
+            manifestReader);
+  }
+
+  private ViteLinkResolver createLinkResolverWithCustomContextPaths(ViteConfigurationProperties.Mode mode) throws IOException {
+    ViteConfigurationProperties properties = new ViteConfigurationProperties(mode,
+                                                                             new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"),
+                                                                             null,
+                                                                             "/build-context",
+                                                                             "/dev-context");
     ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
     manifestReader.init();
     return new ViteLinkResolver(properties,

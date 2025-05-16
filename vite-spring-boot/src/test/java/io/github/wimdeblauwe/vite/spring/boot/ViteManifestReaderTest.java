@@ -23,7 +23,7 @@ class ViteManifestReaderTest {
   @Test
   void givenDevMode_doNothing() throws IOException {
     ViteManifestReader reader = new ViteManifestReader(objectMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.DEV,
-            new ClassPathResource("does-not-exist"), null));
+            new ClassPathResource("does-not-exist"), null, null, null));
     assertThatNoException()
             .isThrownBy(reader::init);
   }
@@ -31,7 +31,7 @@ class ViteManifestReaderTest {
   @Test
   void givenBuildModeAndCouldNotFindManifest_doNothing() throws IOException {
     ViteManifestReader reader = new ViteManifestReader(objectMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.BUILD,
-            new ClassPathResource("does-not-exist"), null));
+            new ClassPathResource("does-not-exist"), null, null, null));
     assertThatNoException()
             .isThrownBy(reader::init);
   }
@@ -45,7 +45,7 @@ class ViteManifestReaderTest {
     void setUp() throws IOException {
       reader = new ViteManifestReader(objectMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.BUILD,
               new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"),
-              null));
+              null, null, null));
 
       reader.init();
     }
