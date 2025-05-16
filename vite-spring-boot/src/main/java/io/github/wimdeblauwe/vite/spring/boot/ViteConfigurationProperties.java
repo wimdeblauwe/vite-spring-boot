@@ -1,5 +1,6 @@
 package io.github.wimdeblauwe.vite.spring.boot;
 
+import jakarta.annotation.Nullable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.core.io.Resource;
@@ -13,7 +14,9 @@ import java.nio.file.Path;
 public record ViteConfigurationProperties(
         @DefaultValue("build") Mode mode,
         @DefaultValue("classpath:/static/.vite/manifest.json") Resource manifest,
-        Path devServerConfigFileLocation
+        Path devServerConfigFileLocation,
+        @Nullable String buildModeContextPath,
+        @Nullable String devModeContextPath
 ) {
 
   public enum Mode {
