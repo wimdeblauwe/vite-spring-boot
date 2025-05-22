@@ -32,10 +32,10 @@ public class ViteJteAutoConfiguration {
     }
 
     @Bean
-    public ViteWebConfiguration viteWebConfiguration(final ViteLinkResolver linkResolver,
-                                                     final ViteConfigurationProperties properties,
-                                                     final ViteDevServerConfigurationProperties devServerProperties) {
+    public ViteJteWebConfiguration viteWebConfiguration(final ViteLinkResolver linkResolver,
+                                                        final ViteConfigurationProperties properties,
+                                                        final ViteDevServerConfigurationProperties devServerProperties) {
 
-        return new ViteWebConfiguration(linkResolver, properties, devServerProperties);
+        return new ViteJteWebConfiguration(linkResolver, properties, devServerProperties);
     }
 }

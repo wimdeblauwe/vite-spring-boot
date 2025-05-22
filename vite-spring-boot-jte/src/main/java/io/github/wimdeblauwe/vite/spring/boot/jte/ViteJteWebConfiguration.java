@@ -9,13 +9,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author Panos Bariamis (pbaris)
  */
-public class ViteWebConfiguration implements WebMvcConfigurer {
+public class ViteJteWebConfiguration implements WebMvcConfigurer {
 
     private final ViteLinkResolver linkResolver;
     private final ViteConfigurationProperties properties;
     private final ViteDevServerConfigurationProperties devServerProperties;
 
-    public ViteWebConfiguration(final ViteLinkResolver linkResolver,
+    public ViteJteWebConfiguration(final ViteLinkResolver linkResolver,
                                 final ViteConfigurationProperties properties,
                                 final ViteDevServerConfigurationProperties devServerProperties) {
 

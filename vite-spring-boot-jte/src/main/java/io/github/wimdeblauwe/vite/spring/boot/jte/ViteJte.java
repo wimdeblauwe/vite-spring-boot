@@ -19,7 +19,7 @@ public class ViteJte {
     private static ViteConfigurationProperties properties;
     private static ViteDevServerConfigurationProperties devServerProperties;
 
-    static void init(final ViteLinkResolver linkResolver,
+    public static void init(final ViteLinkResolver linkResolver,
                      final ViteConfigurationProperties properties,
                      final ViteDevServerConfigurationProperties devServerProperties) {
 
@@ -55,14 +55,22 @@ public class ViteJte {
     }
 
     @SuppressWarnings("unused")
-    public static Content viteEntries(String... entries) {
-        var handler = new ViteEntriesHandler(linkResolver);
+    public static Content viteEntries(final String... entries) {
+        var handler = new ViteJteEntriesHandler(linkResolver);
 
         Arrays.stream(entries)
             .filter(Objects::nonNull)
             .forEach(handler::handleEntry);
 
-        return output ->
-            handler.getHtmlEntries().forEach(output::writeContent);
+        return output -> {
+            var entriesIterator = handler.getHtmlEntries().iterator();
+            while (entriesIterator.hasNext()) {
+                output.writeContent(entriesIterator.next());
+
+                if (entriesIterator.hasNext()) {
+                    output.writeContent("\n");
+                }
+            }
+        };
     }
 }

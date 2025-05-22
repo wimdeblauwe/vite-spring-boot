@@ -15,14 +15,14 @@ import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader.ManifestEntry;
 /**
  * @author Panos Bariamis (pbaris)
  */
-class ViteEntriesHandler {
+class ViteJteEntriesHandler {
     private static final Pattern CSS = Pattern.compile(".*\\.(css|less|sass|scss|styl|stylus|pcss|postcss)$");
 
     private final ViteLinkResolver linkResolver;
     private final List<String> htmlEntries = new ArrayList<>();
     private final Set<String> references = new HashSet<>();
 
-    ViteEntriesHandler(final ViteLinkResolver linkResolver) {
+    ViteJteEntriesHandler(final ViteLinkResolver linkResolver) {
         this.linkResolver = linkResolver;
     }
 

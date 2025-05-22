@@ -10,6 +10,6 @@ class TagFactory {
     }
 
     public static String generateCssLinkTag(final String href) {
-        return "<link rel=\"stylesheet\" href=\"%s\"/>".formatted(href);
+        return "<link rel=\"stylesheet\" href=\"%s\">".formatted(href);
     }
 }
