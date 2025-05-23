@@ -62,15 +62,6 @@ public class ViteJte {
             .filter(Objects::nonNull)
             .forEach(handler::handleEntry);
 
-        return output -> {
-            var entriesIterator = handler.getHtmlEntries().iterator();
-            while (entriesIterator.hasNext()) {
-                output.writeContent(entriesIterator.next());
-
-                if (entriesIterator.hasNext()) {
-                    output.writeContent("\n");
-                }
-            }
-        };
+        return output -> handler.getHtmlEntries().forEach(output::writeContent);
     }
 }

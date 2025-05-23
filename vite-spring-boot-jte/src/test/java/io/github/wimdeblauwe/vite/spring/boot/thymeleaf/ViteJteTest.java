@@ -56,7 +56,7 @@ class ViteJteTest {
         String result = output.toString();
 
         assertThat(result)
-            .contains("<link rel=\"stylesheet\" href=\"/assets/application-BJA3xOLB.css\">")
+            .contains("<link rel=\"stylesheet\" href=\"/assets/application-BJA3xOLB.css\"/>")
             .contains("<script type=\"module\" src=\"/assets/ButtonBar-8UAhfTQ4.js\"></script>")
             .contains("<script type=\"module\" src=\"/assets/client-3T5L5Tgj.js\">");
     }
@@ -68,7 +68,7 @@ class ViteJteTest {
         String result = output.toString();
 
         assertThat(result)
-            .contains("<link rel=\"stylesheet\" href=\"/assets/application-BJA3xOLB.css\">")
+            .contains("<link rel=\"stylesheet\" href=\"/assets/application-BJA3xOLB.css\"/>")
             .contains("<script type=\"module\" src=\"/assets/ButtonBar-8UAhfTQ4.js\"></script>")
             .containsOnlyOnce("<script type=\"module\" src=\"/assets/client-3T5L5Tgj.js\">");
     }
