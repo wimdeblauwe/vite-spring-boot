@@ -1,0 +1,57 @@
+{
+  "_ToggleSwitch-DkReOXgG.js": {
+    "file": "assets/ToggleSwitch-DkReOXgG.js",
+    "name": "ToggleSwitch",
+    "imports": [
+      "_client-3T5L5Tgj.js"
+    ]
+  },
+  "_client-3T5L5Tgj.js": {
+    "file": "assets/client-3T5L5Tgj.js",
+    "name": "client"
+  },
+  "static/css/application.css": {
+    "file": "assets/application-BJA3xOLB.css",
+    "src": "static/css/application.css",
+    "isEntry": true
+  },
+  "static/react/ButtonBar.tsx": {
+    "file": "assets/ButtonBar-8UAhfTQ4.js",
+    "name": "ButtonBar",
+    "src": "static/react/ButtonBar.tsx",
+    "isEntry": true,
+    "imports": [
+      "_client-3T5L5Tgj.js",
+      "_ToggleSwitch-DkReOXgG.js"
+    ]
+  },
+  "static/react/FlowbiteExample.tsx": {
+    "file": "assets/FlowbiteExample-B6hszCQE.js",
+    "name": "FlowbiteExample",
+    "src": "static/react/FlowbiteExample.tsx",
+    "isEntry": true,
+    "imports": [
+      "_client-3T5L5Tgj.js",
+      "_ToggleSwitch-DkReOXgG.js"
+    ]
+  },
+  "static/react/ListExample.tsx": {
+    "file": "assets/ListExample-BE9sf6Vz.js",
+    "name": "ListExample",
+    "src": "static/react/ListExample.tsx",
+    "isEntry": true,
+    "imports": [
+      "_client-3T5L5Tgj.js"
+    ]
+  },
+  "static/react/OccurrencesTimeline.tsx": {
+    "file": "assets/OccurrencesTimeline-D5aHHzQH.js",
+    "name": "OccurrencesTimeline",
+    "src": "static/react/OccurrencesTimeline.tsx",
+    "isEntry": true,
+    "imports": [
+      "_client-3T5L5Tgj.js",
+      "_ToggleSwitch-DkReOXgG.js"
+    ]
+  }
+}

@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/vite-spring-boot-jte/jte-classes/

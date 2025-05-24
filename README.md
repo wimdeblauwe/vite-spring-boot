@@ -24,6 +24,16 @@ When using Thymeleaf:
 </dependency>
 ```
 
+When using JTE:
+
+```xml
+<dependency>
+    <groupId>io.github.wimdeblauwe</groupId>
+    <artifactId>vite-spring-boot-jte</artifactId>
+    <version>LATEST_VERSION_HERE</version>
+</dependency>
+```
+
 Other templating engines are currently not supported, but you can use the classes in `vite-spring-boot` as those do not
 depend on Thymeleaf to build support.
 Use the following dependency in that case:
@@ -52,6 +62,14 @@ For example:
 <vite:client></vite:client>
 ```
 
+When using JTE:
+
+```jte
+@import static io.github.wimdeblauwe.vite.spring.boot.jte.ViteJte.*
+
+${viteClient()}
+```
+
 If the mode is `DEV`, then the HMR client is rendered. If it is `BUILD` then nothing is rendered.
 
 ### React components and Hot Module Reload
@@ -64,6 +82,14 @@ For example:
 ```html
 
 <vite:react-refresh></vite:react-refresh>
+```
+
+When using JTE:
+
+```jte
+@import static io.github.wimdeblauwe.vite.spring.boot.jte.ViteJte.*
+
+${viteReactRefresh()}
 ```
 
 If the mode is `DEV`, then the extra code is rendered. If it is `BUILD` then nothing is rendered.
@@ -79,6 +105,17 @@ For example:
 <vite:vite>
    <vite:entry value="/css/application.css"></vite:entry>
 </vite:vite>
+```
+
+When using JTE:
+
+```jte
+@import static io.github.wimdeblauwe.vite.spring.boot.jte.ViteJte.*
+
+${viteEntries(
+    "/css/application.css",
+    "/js/application.js"
+)}
 ```
 
 When running in DEV mode, this will point to the HMR server of Vite so live reloading works.
