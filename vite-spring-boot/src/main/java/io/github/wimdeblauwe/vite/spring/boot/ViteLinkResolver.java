@@ -41,10 +41,10 @@ public class ViteLinkResolver {
       } else {
         builder.append("/");
       }
-      builder.append(prependWithStatic(resource));
+      builder.append(prependWithPrefix(resource));
       return Optional.of(builder.toString());
     } else {
-      String bundledPath = manifestReader.getBundledPath(prependWithStatic(resource));
+      String bundledPath = manifestReader.getBundledPath(prependWithPrefix(resource));
       if (bundledPath == null) {
         LOGGER.warn("Could not resolve resource {} - Did you add it to vite.config.js?", resource);
         return Optional.empty();
@@ -63,7 +63,7 @@ public class ViteLinkResolver {
   }
 
   public ManifestEntry getManifestEntry(String resource) {
-    ManifestEntry manifestEntry = manifestReader.getManifestEntry(prependWithStatic(resource));
+    ManifestEntry manifestEntry = manifestReader.getManifestEntry(prependWithPrefix(resource));
     if (manifestEntry == null) {
       // imported resources don't have the /static prefix
       manifestEntry = manifestReader.getManifestEntry(resource);
@@ -71,11 +71,11 @@ public class ViteLinkResolver {
     return manifestEntry;
   }
 
-  private String prependWithStatic(String resource) {
+  private String prependWithPrefix(String resource) {
     if (resource.startsWith("/")) {
-      return "static" + resource;
+      return properties.viteEntriesPrefix() + resource;
     } else {
-      return "static/" + resource;
+      return properties.viteEntriesPrefix() + "/" + resource;
     }
   }
 }
