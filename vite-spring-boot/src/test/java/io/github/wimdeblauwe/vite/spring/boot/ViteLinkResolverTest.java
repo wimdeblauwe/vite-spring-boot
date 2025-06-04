@@ -78,7 +78,7 @@ class ViteLinkResolverTest {
   }
 
   private ViteLinkResolver createLinkResolver(ViteConfigurationProperties.Mode mode) throws IOException {
-    ViteConfigurationProperties properties = new ViteConfigurationProperties(mode, new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"), null, null, null);
+    ViteConfigurationProperties properties = new ViteConfigurationProperties(mode, new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"), null, "static", null, null);
     ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
     manifestReader.init();
     return new ViteLinkResolver(properties,
@@ -90,6 +90,7 @@ class ViteLinkResolverTest {
     ViteConfigurationProperties properties = new ViteConfigurationProperties(mode,
                                                                              new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"),
                                                                              null,
+                                                                             "static",
                                                                              "/build-context",
                                                                              "/dev-context");
     ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);

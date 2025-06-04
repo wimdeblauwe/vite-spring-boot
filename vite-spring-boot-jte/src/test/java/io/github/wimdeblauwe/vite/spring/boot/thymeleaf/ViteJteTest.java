@@ -36,7 +36,7 @@ class ViteJteTest {
         templateEngine = TemplateEngine.create(codeResolver, ContentType.Html);
 
         ViteConfigurationProperties properties = new ViteConfigurationProperties(BUILD,
-            new ClassPathResource("vite-manifest-example.json"), null, null, null);
+            new ClassPathResource("vite-manifest-example.json"), null, "static",null, null);
         ViteDevServerConfigurationProperties devServerConfigurationProperties = new ViteDevServerConfigurationProperties("localhost", 5431);
 
         ObjectMapper objectMapper = new ObjectMapper()

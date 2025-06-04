@@ -15,6 +15,7 @@ public record ViteConfigurationProperties(
         @DefaultValue("build") Mode mode,
         @DefaultValue("classpath:/static/.vite/manifest.json") Resource manifest,
         Path devServerConfigFileLocation,
+        @DefaultValue("static") String viteEntriesPrefix,
         @Nullable String buildModeContextPath,
         @Nullable String devModeContextPath
 ) {
