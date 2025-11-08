@@ -6,8 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.nio.file.Path;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import gg.jte.CodeResolver;
 import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
@@ -19,6 +17,8 @@ import io.github.wimdeblauwe.vite.spring.boot.ViteDevServerConfigurationProperti
 import io.github.wimdeblauwe.vite.spring.boot.ViteLinkResolver;
 import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader;
 import io.github.wimdeblauwe.vite.spring.boot.jte.ViteJte;
+import tools.jackson.databind.json.JsonMapper;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -39,10 +39,9 @@ class ViteJteTest {
             new ClassPathResource("vite-manifest-example.json"), null, "static",null, null);
         ViteDevServerConfigurationProperties devServerConfigurationProperties = new ViteDevServerConfigurationProperties("localhost", 5431);
 
-        ObjectMapper objectMapper = new ObjectMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        JsonMapper jsonMapper = JsonMapper.builder().build();
 
-        ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
+        ViteManifestReader manifestReader = new ViteManifestReader(jsonMapper, properties);
         manifestReader.init();
         ViteLinkResolver linkResolver = new ViteLinkResolver(properties, devServerConfigurationProperties, manifestReader);
 

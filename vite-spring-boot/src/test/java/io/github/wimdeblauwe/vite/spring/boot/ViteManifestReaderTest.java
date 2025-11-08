@@ -1,7 +1,6 @@
 package io.github.wimdeblauwe.vite.spring.boot;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,24 +13,26 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
+import tools.jackson.databind.json.JsonMapper;
+
 @JsonTest
 class ViteManifestReaderTest {
 
   @Autowired
-  private ObjectMapper objectMapper;
+  private JsonMapper jsonMapper;
 
   @Test
   void givenDevMode_doNothing() throws IOException {
-    ViteManifestReader reader = new ViteManifestReader(objectMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.DEV,
-            new ClassPathResource("does-not-exist"), null, "static",null, null));
+    ViteManifestReader reader = new ViteManifestReader(jsonMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.DEV,
+                                                                                                   new ClassPathResource("does-not-exist"), null, "static", null, null));
     assertThatNoException()
             .isThrownBy(reader::init);
   }
 
   @Test
   void givenBuildModeAndCouldNotFindManifest_doNothing() throws IOException {
-    ViteManifestReader reader = new ViteManifestReader(objectMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.BUILD,
-            new ClassPathResource("does-not-exist"), null, "static",null, null));
+    ViteManifestReader reader = new ViteManifestReader(jsonMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.BUILD,
+                                                                                                   new ClassPathResource("does-not-exist"), null, "static", null, null));
     assertThatNoException()
             .isThrownBy(reader::init);
   }
@@ -43,9 +44,9 @@ class ViteManifestReaderTest {
 
     @BeforeEach
     void setUp() throws IOException {
-      reader = new ViteManifestReader(objectMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.BUILD,
-              new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"),
-              null, "static", null, null));
+      reader = new ViteManifestReader(jsonMapper, new ViteConfigurationProperties(ViteConfigurationProperties.Mode.BUILD,
+                                                                                  new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"),
+                                                                                  null, "static", null, null));
 
       reader.init();
     }

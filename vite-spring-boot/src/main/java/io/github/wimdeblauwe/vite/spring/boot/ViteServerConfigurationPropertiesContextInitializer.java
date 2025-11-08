@@ -1,7 +1,6 @@
 package io.github.wimdeblauwe.vite.spring.boot;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -12,11 +11,13 @@ import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 
 import static io.github.wimdeblauwe.vite.spring.boot.ViteDevServerConfigurationProperties.PREFIX;
+
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * This ApplicationContextInializer will automatically set the property values of {@link ViteDevServerConfigurationProperties}
@@ -32,7 +33,7 @@ public class ViteServerConfigurationPropertiesContextInitializer implements Appl
     try {
       Path path = getDevServerConfigFilePath(applicationContext);
       if (path.toFile().exists()) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        JsonMapper objectMapper = JsonMapper.builder().build();
         Map map = objectMapper.readValue(path.toFile(), Map.class);
 
         MapPropertySource hostPropertySource = new MapPropertySource(PROPERTY_FILE_PREFX + "host",
@@ -45,7 +46,7 @@ public class ViteServerConfigurationPropertiesContextInitializer implements Appl
       } else {
         LOGGER.debug("Could not find {} - Unable to load information on Vite Dev Server", path.toAbsolutePath());
       }
-    } catch (IOException e) {
+    } catch (JacksonException e) {
       throw new RuntimeException(e);
     }
   }

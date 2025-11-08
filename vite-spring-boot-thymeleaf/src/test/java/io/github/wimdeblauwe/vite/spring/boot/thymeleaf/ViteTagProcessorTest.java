@@ -1,11 +1,11 @@
 package io.github.wimdeblauwe.vite.spring.boot.thymeleaf;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.wimdeblauwe.vite.spring.boot.ViteConfigurationProperties;
 import io.github.wimdeblauwe.vite.spring.boot.ViteDevServerConfigurationProperties;
 import io.github.wimdeblauwe.vite.spring.boot.ViteLinkResolver;
 import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader;
+import tools.jackson.databind.json.JsonMapper;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -38,10 +38,9 @@ class ViteTagProcessorTest {
                                                                              new ClassPathResource("vite-manifest-example.json"), null, "static",null, null);
     ViteDevServerConfigurationProperties devServerConfigurationProperties = new ViteDevServerConfigurationProperties("localhost", 5431);
 
-    ObjectMapper objectMapper = new ObjectMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    JsonMapper jsonMapper = JsonMapper.builder().build();
 
-    ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
+    ViteManifestReader manifestReader = new ViteManifestReader(jsonMapper, properties);
     manifestReader.init();
     ViteLinkResolver linkResolver = new ViteLinkResolver(properties, devServerConfigurationProperties, manifestReader);
 

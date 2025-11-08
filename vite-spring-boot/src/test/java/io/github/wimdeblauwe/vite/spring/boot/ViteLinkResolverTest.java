@@ -1,7 +1,6 @@
 package io.github.wimdeblauwe.vite.spring.boot;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,11 +12,13 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import tools.jackson.databind.json.JsonMapper;
+
 @JsonTest
 class ViteLinkResolverTest {
 
   @Autowired
-  private ObjectMapper objectMapper;
+  private JsonMapper jsonMapper;
 
   @Nested
   class ResolveResourceTests {
@@ -79,7 +80,7 @@ class ViteLinkResolverTest {
 
   private ViteLinkResolver createLinkResolver(ViteConfigurationProperties.Mode mode) throws IOException {
     ViteConfigurationProperties properties = new ViteConfigurationProperties(mode, new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"), null, "static", null, null);
-    ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
+    ViteManifestReader manifestReader = new ViteManifestReader(jsonMapper, properties);
     manifestReader.init();
     return new ViteLinkResolver(properties,
             new ViteDevServerConfigurationProperties("localhost", 5173),
@@ -93,7 +94,7 @@ class ViteLinkResolverTest {
                                                                              "static",
                                                                              "/build-context",
                                                                              "/dev-context");
-    ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
+    ViteManifestReader manifestReader = new ViteManifestReader(jsonMapper, properties);
     manifestReader.init();
     return new ViteLinkResolver(properties,
             new ViteDevServerConfigurationProperties("localhost", 5173),

@@ -1,10 +1,11 @@
 package io.github.wimdeblauwe.vite.spring.boot.thymeleaf;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.wimdeblauwe.vite.spring.boot.ViteConfigurationProperties;
 import io.github.wimdeblauwe.vite.spring.boot.ViteDevServerConfigurationProperties;
 import io.github.wimdeblauwe.vite.spring.boot.ViteLinkResolver;
 import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader;
+import tools.jackson.databind.json.JsonMapper;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -33,7 +34,7 @@ public class ViteThymeleafAutoConfiguration {
   }
 
   @Bean
-  public ViteManifestReader viteManifestReader(ObjectMapper objectMapper, ViteConfigurationProperties properties) {
-    return new ViteManifestReader(objectMapper, properties);
+  public ViteManifestReader viteManifestReader(JsonMapper jsonMapper, ViteConfigurationProperties properties) {
+    return new ViteManifestReader(jsonMapper, properties);
   }
 }

@@ -1,10 +1,11 @@
 package io.github.wimdeblauwe.vite.spring.boot.jte;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.wimdeblauwe.vite.spring.boot.ViteConfigurationProperties;
 import io.github.wimdeblauwe.vite.spring.boot.ViteDevServerConfigurationProperties;
 import io.github.wimdeblauwe.vite.spring.boot.ViteLinkResolver;
 import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader;
+import tools.jackson.databind.json.JsonMapper;
+
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,8 +28,8 @@ public class ViteJteAutoConfiguration {
     }
 
     @Bean
-    public ViteManifestReader viteManifestReader(final ObjectMapper objectMapper, final ViteConfigurationProperties properties) {
-        return new ViteManifestReader(objectMapper, properties);
+    public ViteManifestReader viteManifestReader(final JsonMapper jsonMapper, final ViteConfigurationProperties properties) {
+        return new ViteManifestReader(jsonMapper, properties);
     }
 
     @Bean
