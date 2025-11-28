@@ -136,6 +136,12 @@ generated.
 | `vite.build-mode-context-path`         | Optional prefix that should be applied in `BUILD` mode for resolving the assets. If you use this, you will also need to update the `outDir` of `vite.config.js` to match this path.                                                                         |                                                                                                                                                      |
 | `vite.dev-mode-context-path`           | Optional prefix that should be applied in `DEV` mode for resolving the assets.                                                                                                                                                                              |                                                                                                                                                      |
 | `vite.vite-entries-prefix`             | The prefix that is added automatically to any vite entry declaration in the HTML. This is important if you change the `root` property in `vite.config.js`.                                                                                                  | `static`                                                                                                                                             |
+## Spring Boot compatibility
+
+| Library version                                                             | Spring Boot | Minimum Java version | Documentation                                                                     |
+|-----------------------------------------------------------------------------|-------------|----------------------|-----------------------------------------------------------------------------------|
+| [2.0.0](https://github.com/wimdeblauwe/vite-spring-boot/releases/tag/2.0.0) | 4.x         | 17                   | [README.md](https://github.com/wimdeblauwe/vite-spring-boot/blob/2.0.0/README.md) |
+| [1.0.0](https://github.com/wimdeblauwe/vite-spring-boot/releases/tag/1.0.0) | 3.5.x       | 17                   | [README.md](https://github.com/wimdeblauwe/vite-spring-boot/blob/1.0.0/README.md) |
 
 ## Contributing
 
