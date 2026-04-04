@@ -1,0 +1,545 @@
+{
+  "_autosubmit.r8iHgQvC.min.js": {
+    "file": "assets/autosubmit.r8iHgQvC.min.js",
+    "name": "autosubmit"
+  },
+  "_calendar.C4S5ojBx.min.js": {
+    "file": "assets/calendar.C4S5ojBx.min.js",
+    "name": "calendar",
+    "imports": [
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js"
+    ],
+    "css": [
+      "assets/calendar.fn7WE02H.css"
+    ]
+  },
+  "_calendar.fn7WE02H.css": {
+    "file": "assets/calendar.fn7WE02H.css",
+    "src": "_calendar.fn7WE02H.css"
+  },
+  "_fetch.Bc7I7bIE.min.js": {
+    "file": "assets/fetch.Bc7I7bIE.min.js",
+    "name": "fetch"
+  },
+  "_hotwire-turbo-progressbar.CUHRTaOR.min.js": {
+    "file": "assets/hotwire-turbo-progressbar.CUHRTaOR.min.js",
+    "name": "hotwire-turbo-progressbar",
+    "imports": [
+      "_turbo.es2017-esm.DHvWW2v7.min.js"
+    ]
+  },
+  "_index.BCp-oihN.min.js": {
+    "file": "assets/index.BCp-oihN.min.js",
+    "name": "index",
+    "imports": [
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "_index.Bh91bsRU.min.js": {
+    "file": "assets/index.Bh91bsRU.min.js",
+    "name": "index"
+  },
+  "_index.D_CwqlHt.min.js": {
+    "file": "assets/index.D_CwqlHt.min.js",
+    "name": "index",
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "_tooltip.V9gAR6FA.min.js"
+    ]
+  },
+  "_index.wj8pcfcc.min.js": {
+    "file": "assets/index.wj8pcfcc.min.js",
+    "name": "index",
+    "imports": [
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "_jquery.CYvPhWWh.min.js": {
+    "file": "assets/jquery.CYvPhWWh.min.js",
+    "name": "jquery"
+  },
+  "_jquery.tablesorter.combined.D9ypodMB.min.js": {
+    "file": "assets/jquery.tablesorter.combined.D9ypodMB.min.js",
+    "name": "jquery.tablesorter.combined",
+    "imports": [
+      "_jquery.CYvPhWWh.min.js"
+    ]
+  },
+  "_locale-resolver.D1koifEE.min.js": {
+    "file": "assets/locale-resolver.D1koifEE.min.js",
+    "name": "locale-resolver",
+    "imports": [
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "_max-chars.DwBgcc3G.min.js": {
+    "file": "assets/max-chars.DwBgcc3G.min.js",
+    "name": "max-chars"
+  },
+  "_popover.ae9y68QG.min.js": {
+    "file": "assets/popover.ae9y68QG.min.js",
+    "name": "popover",
+    "imports": [
+      "_jquery.CYvPhWWh.min.js"
+    ]
+  },
+  "_send-get-days-request-for-turn-of-the-year.N0-OrWVW.min.js": {
+    "file": "assets/send-get-days-request-for-turn-of-the-year.N0-OrWVW.min.js",
+    "name": "send-get-days-request-for-turn-of-the-year",
+    "imports": [
+      "_fetch.Bc7I7bIE.min.js",
+      "_index.wj8pcfcc.min.js"
+    ]
+  },
+  "_tab.DRceIxvF.min.js": {
+    "file": "assets/tab.DRceIxvF.min.js",
+    "name": "tab",
+    "imports": [
+      "_jquery.CYvPhWWh.min.js"
+    ]
+  },
+  "_tooltip.V9gAR6FA.min.js": {
+    "file": "assets/tooltip.V9gAR6FA.min.js",
+    "name": "tooltip",
+    "imports": [
+      "_jquery.CYvPhWWh.min.js"
+    ]
+  },
+  "_turbo-before-render-restore.BN3LCdBL.min.js": {
+    "file": "assets/turbo-before-render-restore.BN3LCdBL.min.js",
+    "name": "turbo-before-render-restore",
+    "imports": [
+      "src/main/javascript/components/datepicker/index.js"
+    ]
+  },
+  "_turbo.es2017-esm.DHvWW2v7.min.js": {
+    "file": "assets/turbo.es2017-esm.DHvWW2v7.min.js",
+    "name": "turbo.es2017-esm"
+  },
+  "node_modules/date-fns/esm/locale/de-AT/index.js": {
+    "file": "assets/index.DSg2a4Uh.min.js",
+    "name": "index",
+    "src": "node_modules/date-fns/esm/locale/de-AT/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index.BCp-oihN.min.js",
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "node_modules/date-fns/esm/locale/de/index.js": {
+    "file": "assets/index.E_D5Olis.min.js",
+    "name": "index",
+    "src": "node_modules/date-fns/esm/locale/de/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index.BCp-oihN.min.js",
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "node_modules/date-fns/esm/locale/el/index.js": {
+    "file": "assets/index.yT1O6zju.min.js",
+    "name": "index",
+    "src": "node_modules/date-fns/esm/locale/el/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "node_modules/date-fns/esm/locale/en-GB/index.js": {
+    "file": "assets/index.CMH_g7DM.min.js",
+    "name": "index",
+    "src": "node_modules/date-fns/esm/locale/en-GB/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/absences-overview.js": {
+    "file": "assets/absences_overview.DnLNFLkL.min.js",
+    "name": "absences_overview",
+    "src": "src/main/javascript/bundles/absences-overview.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "_jquery.tablesorter.combined.D9ypodMB.min.js"
+    ],
+    "css": [
+      "assets/absences_overview.D3I0_cTc.css"
+    ]
+  },
+  "src/main/javascript/bundles/account-form.js": {
+    "file": "assets/account_form.DciBKjhr.min.js",
+    "name": "account_form",
+    "src": "src/main/javascript/bundles/account-form.js",
+    "isEntry": true,
+    "imports": [
+      "src/main/javascript/components/datepicker/index.js",
+      "src/main/javascript/bundles/person-form.js",
+      "_max-chars.DwBgcc3G.min.js",
+      "_calendar.C4S5ojBx.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/app-detail.js": {
+    "file": "assets/app_detail.Bvpaj8Dj.min.js",
+    "name": "app_detail",
+    "src": "src/main/javascript/bundles/app-detail.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "_send-get-days-request-for-turn-of-the-year.N0-OrWVW.min.js",
+      "_max-chars.DwBgcc3G.min.js",
+      "_fetch.Bc7I7bIE.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/app-form.js": {
+    "file": "assets/app_form.MtDaKpBi.min.js",
+    "name": "app_form",
+    "src": "src/main/javascript/bundles/app-form.js",
+    "isEntry": true,
+    "imports": [
+      "src/main/javascript/components/datepicker/index.js",
+      "_jquery.CYvPhWWh.min.js",
+      "_send-get-days-request-for-turn-of-the-year.N0-OrWVW.min.js",
+      "_fetch.Bc7I7bIE.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_calendar.C4S5ojBx.min.js",
+      "src/main/javascript/bundles/person-form.js",
+      "_max-chars.DwBgcc3G.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_index.Bh91bsRU.min.js"
+    ],
+    "css": [
+      "assets/app_form._C7kVfoY.css"
+    ]
+  },
+  "src/main/javascript/bundles/app-list.js": {
+    "file": "assets/app_list.CFPNJ7BJ.min.js",
+    "name": "app_list",
+    "src": "src/main/javascript/bundles/app-list.js",
+    "isEntry": true,
+    "imports": [
+      "src/main/javascript/bundles/overtime-overview.js"
+    ]
+  },
+  "src/main/javascript/bundles/app-statistics.js": {
+    "file": "assets/app_statistics.BNsvJmQt.min.js",
+    "name": "app_statistics",
+    "src": "src/main/javascript/bundles/app-statistics.js",
+    "isEntry": true,
+    "imports": [
+      "_turbo.es2017-esm.DHvWW2v7.min.js",
+      "_turbo-before-render-restore.BN3LCdBL.min.js",
+      "_autosubmit.r8iHgQvC.min.js",
+      "src/main/javascript/components/datepicker/index.js",
+      "_hotwire-turbo-progressbar.CUHRTaOR.min.js",
+      "_calendar.C4S5ojBx.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/common.js": {
+    "file": "assets/common.CcPfV1tJ.min.js",
+    "name": "common",
+    "src": "src/main/javascript/bundles/common.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "_tab.DRceIxvF.min.js",
+      "_tooltip.V9gAR6FA.min.js",
+      "_popover.ae9y68QG.min.js",
+      "_fetch.Bc7I7bIE.min.js",
+      "_index.D_CwqlHt.min.js"
+    ],
+    "css": [
+      "assets/common.TBP_tahU.css"
+    ]
+  },
+  "src/main/javascript/bundles/custom-elements-polyfill.js": {
+    "file": "assets/custom-elements-polyfill.DsniQcEy.min.js",
+    "name": "custom-elements-polyfill",
+    "src": "src/main/javascript/bundles/custom-elements-polyfill.js",
+    "isEntry": true
+  },
+  "src/main/javascript/bundles/datalist-polyfill.js": {
+    "file": "assets/datalist_polyfill.KsgG9JZ5.min.js",
+    "name": "datalist_polyfill",
+    "src": "src/main/javascript/bundles/datalist-polyfill.js",
+    "isEntry": true
+  },
+  "src/main/javascript/bundles/date-fns-localized.js": {
+    "file": "assets/date-fns-localized.b3e9seAS.min.js",
+    "name": "date-fns-localized",
+    "src": "src/main/javascript/bundles/date-fns-localized.js",
+    "isEntry": true,
+    "imports": [
+      "_locale-resolver.D1koifEE.min.js",
+      "_index.Bh91bsRU.min.js"
+    ],
+    "dynamicImports": [
+      "node_modules/date-fns/esm/locale/de-AT/index.js",
+      "node_modules/date-fns/esm/locale/de/index.js",
+      "node_modules/date-fns/esm/locale/en-GB/index.js",
+      "node_modules/date-fns/esm/locale/el/index.js"
+    ]
+  },
+  "src/main/javascript/bundles/department-form.js": {
+    "file": "assets/department_form.BqQUcWVm.min.js",
+    "name": "department_form",
+    "src": "src/main/javascript/bundles/department-form.js",
+    "isEntry": true,
+    "imports": [
+      "_turbo.es2017-esm.DHvWW2v7.min.js",
+      "src/main/javascript/bundles/person-form.js",
+      "_max-chars.DwBgcc3G.min.js",
+      "_autosubmit.r8iHgQvC.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/department-list.js": {
+    "file": "assets/department_list.DNNSEzhb.min.js",
+    "name": "department_list",
+    "src": "src/main/javascript/bundles/department-list.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "_jquery.tablesorter.combined.D9ypodMB.min.js",
+      "_tooltip.V9gAR6FA.min.js",
+      "_popover.ae9y68QG.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/overtime-form.js": {
+    "file": "assets/overtime_form.BH1NpMRr.min.js",
+    "name": "overtime_form",
+    "src": "src/main/javascript/bundles/overtime-form.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "src/main/javascript/components/datepicker/index.js",
+      "src/main/javascript/bundles/person-form.js",
+      "_max-chars.DwBgcc3G.min.js",
+      "_calendar.C4S5ojBx.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/overtime-overview.js": {
+    "file": "assets/overtime_overview.fP3sqvHh.min.js",
+    "name": "overtime_overview",
+    "src": "src/main/javascript/bundles/overtime-overview.js",
+    "isEntry": true
+  },
+  "src/main/javascript/bundles/person-basedata.js": {
+    "file": "assets/person_basedata.DnozbFB_.min.js",
+    "name": "person_basedata",
+    "src": "src/main/javascript/bundles/person-basedata.js",
+    "isEntry": true,
+    "imports": [
+      "_max-chars.DwBgcc3G.min.js",
+      "src/main/javascript/bundles/person-form.js"
+    ]
+  },
+  "src/main/javascript/bundles/person-form.js": {
+    "file": "assets/person_form.BWIoxKKn.min.js",
+    "name": "person_form",
+    "src": "src/main/javascript/bundles/person-form.js",
+    "isEntry": true
+  },
+  "src/main/javascript/bundles/person-notifications.js": {
+    "file": "assets/person_notifications.BIgiyQY2.min.js",
+    "name": "person_notifications",
+    "src": "src/main/javascript/bundles/person-notifications.js",
+    "isEntry": true,
+    "imports": [
+      "_turbo.es2017-esm.DHvWW2v7.min.js",
+      "_autosubmit.r8iHgQvC.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/person-overview.js": {
+    "file": "assets/person_overview.Dry8WyB5.min.js",
+    "name": "person_overview",
+    "src": "src/main/javascript/bundles/person-overview.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "_fetch.Bc7I7bIE.min.js",
+      "_calendar.C4S5ojBx.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.D_CwqlHt.min.js",
+      "_send-get-days-request-for-turn-of-the-year.N0-OrWVW.min.js",
+      "src/main/javascript/bundles/overtime-overview.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_tooltip.V9gAR6FA.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/person.js": {
+    "file": "assets/person.Px54RW3Q.min.js",
+    "name": "person",
+    "src": "src/main/javascript/bundles/person.js",
+    "isEntry": true,
+    "imports": [
+      "_turbo.es2017-esm.DHvWW2v7.min.js",
+      "_hotwire-turbo-progressbar.CUHRTaOR.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/persons.js": {
+    "file": "assets/persons.C9lhAwZH.min.js",
+    "name": "persons",
+    "src": "src/main/javascript/bundles/persons.js",
+    "isEntry": true,
+    "imports": [
+      "_turbo.es2017-esm.DHvWW2v7.min.js",
+      "_autosubmit.r8iHgQvC.min.js",
+      "_hotwire-turbo-progressbar.CUHRTaOR.min.js",
+      "src/main/javascript/bundles/overtime-overview.js"
+    ]
+  },
+  "src/main/javascript/bundles/polyfill.js": {
+    "file": "assets/polyfill.x_Mg-ijC.min.js",
+    "name": "polyfill",
+    "src": "src/main/javascript/bundles/polyfill.js",
+    "isEntry": true
+  },
+  "src/main/javascript/bundles/settings-form.js": {
+    "file": "assets/settings_form.BQg2oy_1.min.js",
+    "name": "settings_form",
+    "src": "src/main/javascript/bundles/settings-form.js",
+    "isEntry": true,
+    "imports": [
+      "src/main/javascript/components/tabs/index.js",
+      "_jquery.CYvPhWWh.min.js",
+      "_tab.DRceIxvF.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/sick-note-convert.js": {
+    "file": "assets/sick_note_convert.Blst47k7.min.js",
+    "name": "sick_note_convert",
+    "src": "src/main/javascript/bundles/sick-note-convert.js",
+    "isEntry": true,
+    "imports": [
+      "src/main/javascript/bundles/person-form.js",
+      "_max-chars.DwBgcc3G.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/sick-note-form.js": {
+    "file": "assets/sick_note_form.B7XCubhp.min.js",
+    "name": "sick_note_form",
+    "src": "src/main/javascript/bundles/sick-note-form.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "src/main/javascript/components/datepicker/index.js",
+      "src/main/javascript/bundles/person-form.js",
+      "_max-chars.DwBgcc3G.min.js",
+      "_calendar.C4S5ojBx.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/sick-note.js": {
+    "file": "assets/sick_note.DYixFUDp.min.js",
+    "name": "sick_note",
+    "src": "src/main/javascript/bundles/sick-note.js",
+    "isEntry": true,
+    "imports": [
+      "_max-chars.DwBgcc3G.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/sick-notes.js": {
+    "file": "assets/sick_notes.cBwzFfph.min.js",
+    "name": "sick_notes",
+    "src": "src/main/javascript/bundles/sick-notes.js",
+    "isEntry": true,
+    "imports": [
+      "_turbo.es2017-esm.DHvWW2v7.min.js",
+      "_turbo-before-render-restore.BN3LCdBL.min.js",
+      "_autosubmit.r8iHgQvC.min.js",
+      "src/main/javascript/components/datepicker/index.js",
+      "_hotwire-turbo-progressbar.CUHRTaOR.min.js",
+      "src/main/javascript/bundles/overtime-overview.js",
+      "_calendar.C4S5ojBx.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/user-settings.js": {
+    "file": "assets/user_settings.C2AS5K0w.min.js",
+    "name": "user_settings",
+    "src": "src/main/javascript/bundles/user-settings.js",
+    "isEntry": true,
+    "imports": [
+      "_fetch.Bc7I7bIE.min.js",
+      "_index.D_CwqlHt.min.js",
+      "_jquery.CYvPhWWh.min.js",
+      "_tooltip.V9gAR6FA.min.js"
+    ]
+  },
+  "src/main/javascript/bundles/workingtime-form.js": {
+    "file": "assets/workingtime_form.C2zkLMSM.min.js",
+    "name": "workingtime_form",
+    "src": "src/main/javascript/bundles/workingtime-form.js",
+    "isEntry": true,
+    "imports": [
+      "src/main/javascript/components/datepicker/index.js",
+      "src/main/javascript/bundles/person-form.js",
+      "_calendar.C4S5ojBx.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js"
+    ]
+  },
+  "src/main/javascript/components/copy-to-clipboard-input/index.js": {
+    "file": "assets/copy_to_clipboard_input.DyRGKgyo.min.js",
+    "name": "copy_to_clipboard_input",
+    "src": "src/main/javascript/components/copy-to-clipboard-input/index.js",
+    "isEntry": true,
+    "imports": [
+      "_index.D_CwqlHt.min.js",
+      "_jquery.CYvPhWWh.min.js",
+      "_tooltip.V9gAR6FA.min.js"
+    ]
+  },
+  "src/main/javascript/components/datepicker/index.js": {
+    "file": "assets/datepicker.BjDyXs7e.min.js",
+    "name": "datepicker",
+    "src": "src/main/javascript/components/datepicker/index.js",
+    "isEntry": true,
+    "imports": [
+      "_calendar.C4S5ojBx.min.js",
+      "_locale-resolver.D1koifEE.min.js",
+      "_fetch.Bc7I7bIE.min.js",
+      "_index.wj8pcfcc.min.js",
+      "_index.Bh91bsRU.min.js"
+    ],
+    "css": [
+      "assets/datepicker.Dpt7jkcJ.css"
+    ]
+  },
+  "src/main/javascript/components/tabs/index.js": {
+    "file": "assets/tabs.B_PQeATH.min.js",
+    "name": "tabs",
+    "src": "src/main/javascript/components/tabs/index.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery.CYvPhWWh.min.js",
+      "_tab.DRceIxvF.min.js"
+    ]
+  }
+}

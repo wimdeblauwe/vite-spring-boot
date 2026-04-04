@@ -111,10 +111,8 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
       if (manifestEntry != null) {
         if (manifestEntry.css() != null) {
           for (String linkedCss : manifestEntry.css()) {
-            linkResolver.resolveResource(linkedCss)
-                    .ifPresent(resource -> {
-                      executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resource)));
-                    });
+            String resolvedCss = linkResolver.resolveBuiltAssetPath(linkedCss);
+            executeIfNotOutputtedYet(linkedCss, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resolvedCss)));
           }
         }
 
@@ -141,7 +139,8 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
 
       if (manifestEntry.css() != null) {
         for (String linkedCss : manifestEntry.css()) {
-          executeIfNotOutputtedYet(linkedCss, () -> htmlEntries.add(tagFactory.generateCssLinkTag(linkedCss)));
+          String resolvedCss = linkResolver.resolveBuiltAssetPath(linkedCss);
+          executeIfNotOutputtedYet(linkedCss, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resolvedCss)));
         }
       }
 
