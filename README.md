@@ -140,7 +140,7 @@ generated.
 
 | Library version                                                             | Spring Boot | Minimum Java version | Documentation                                                                     |
 |-----------------------------------------------------------------------------|-------------|----------------------|-----------------------------------------------------------------------------------|
-| [2.0.0](https://github.com/wimdeblauwe/vite-spring-boot/releases/tag/2.0.0) | 4.x         | 17                   | [README.md](https://github.com/wimdeblauwe/vite-spring-boot/blob/2.0.0/README.md) |
+| [2.0.1](https://github.com/wimdeblauwe/vite-spring-boot/releases/tag/2.0.1) | 4.x         | 17                   | [README.md](https://github.com/wimdeblauwe/vite-spring-boot/blob/2.0.1/README.md) |
 | [1.0.0](https://github.com/wimdeblauwe/vite-spring-boot/releases/tag/1.0.0) | 3.5.x       | 17                   | [README.md](https://github.com/wimdeblauwe/vite-spring-boot/blob/1.0.0/README.md) |
 
 ## Contributing
