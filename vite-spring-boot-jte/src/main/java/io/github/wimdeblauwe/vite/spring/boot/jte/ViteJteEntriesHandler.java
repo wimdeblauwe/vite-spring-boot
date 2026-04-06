@@ -31,7 +31,7 @@ class ViteJteEntriesHandler {
 
         ManifestEntry manifestEntry = linkResolver.getManifestEntry(entry);
         if (manifestEntry != null) {
-            manifestEntry.css().forEach(linkedCss -> addEntryIfMissing(linkedCss, true));
+            manifestEntry.css().forEach(this::addBuiltCssIfMissing);
             manifestEntry.imports().forEach(this::handleImportedResource);
         }
     }
@@ -52,12 +52,19 @@ class ViteJteEntriesHandler {
         }
     }
 
+    private void addBuiltCssIfMissing(final String linkedCss) {
+        if (references.add(linkedCss)) {
+            String resolvedCss = linkResolver.resolveBuiltAssetPath(linkedCss);
+            htmlEntries.add(generateCssLinkTag(resolvedCss));
+        }
+    }
+
     private void handleImportedResource(final String resource) {
         ManifestEntry manifestEntry = linkResolver.getManifestEntry(resource);
         String file = "/" + manifestEntry.file();
         addEntryIfMissing(file, false);
 
-        manifestEntry.css().forEach(linkedCss -> addEntryIfMissing(linkedCss, false));
+        manifestEntry.css().forEach(this::addBuiltCssIfMissing);
         manifestEntry.imports().forEach(this::handleImportedResource);
     }
 }

@@ -78,13 +78,66 @@ class ViteLinkResolverTest {
     }
   }
 
+  @Nested
+  class Issue19Tests {
+    @Test
+    void testGetManifestEntryWithCssArray() throws IOException {
+      ViteLinkResolver resolver = createLinkResolverForIssue19();
+      ViteManifestReader.ManifestEntry entry = resolver.getManifestEntry("bundles/app-form.js");
+      assertThat(entry).isNotNull();
+      assertThat(entry.css()).containsExactly("assets/app_form._C7kVfoY.css");
+    }
+
+    @Test
+    void testResolveBuiltAssetPath() throws IOException {
+      ViteLinkResolver resolver = createLinkResolverForIssue19();
+      // CSS paths from manifest css arrays are already built paths
+      // They should be resolvable without going through the manifest again
+      String resolved = resolver.resolveBuiltAssetPath("assets/app_form._C7kVfoY.css");
+      assertThat(resolved).isEqualTo("/assets/app_form._C7kVfoY.css");
+    }
+
+    @Test
+    void testResolveBuiltAssetPathWithContextPath() throws IOException {
+      ViteConfigurationProperties properties = new ViteConfigurationProperties(
+              ViteConfigurationProperties.Mode.BUILD,
+              new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-issue-19.json"),
+              null, "src/main/javascript", "/build-context", null);
+      ViteManifestReader manifestReader = new ViteManifestReader(jsonMapper, properties);
+      manifestReader.init();
+      ViteLinkResolver resolver = new ViteLinkResolver(properties,
+              new ViteDevServerConfigurationProperties("localhost", 5173),
+              manifestReader);
+
+      String resolved = resolver.resolveBuiltAssetPath("assets/app_form._C7kVfoY.css");
+      assertThat(resolved).isEqualTo("/build-context/assets/app_form._C7kVfoY.css");
+    }
+  }
+
   private ViteLinkResolver createLinkResolver(ViteConfigurationProperties.Mode mode) throws IOException {
-    ViteConfigurationProperties properties = new ViteConfigurationProperties(mode, new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"), null, "static", null, null);
+    return createLinkResolver(mode, new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-example.json"));
+  }
+
+  private ViteLinkResolver createLinkResolver(ViteConfigurationProperties.Mode mode,
+                                              ClassPathResource manifestResource) throws IOException {
+    return createLinkResolver(mode, manifestResource, "static");
+  }
+
+  private ViteLinkResolver createLinkResolver(ViteConfigurationProperties.Mode mode,
+                                              ClassPathResource manifestResource,
+                                              String prefix) throws IOException {
+    ViteConfigurationProperties properties = new ViteConfigurationProperties(mode, manifestResource, null, prefix, null, null);
     ViteManifestReader manifestReader = new ViteManifestReader(jsonMapper, properties);
     manifestReader.init();
     return new ViteLinkResolver(properties,
             new ViteDevServerConfigurationProperties("localhost", 5173),
             manifestReader);
+  }
+
+  private ViteLinkResolver createLinkResolverForIssue19() throws IOException {
+    return createLinkResolver(ViteConfigurationProperties.Mode.BUILD,
+            new ClassPathResource("io/github/wimdeblauwe/vite/spring/boot/vite-manifest-issue-19.json"),
+            "src/main/javascript");
   }
 
   private ViteLinkResolver createLinkResolverWithCustomContextPaths(ViteConfigurationProperties.Mode mode) throws IOException {
