@@ -27,6 +27,14 @@ public class ViteLinkResolver {
     this.manifestReader = manifestReader;
   }
 
+  public ViteConfigurationProperties getProperties() {
+    return properties;
+  }
+
+  public ViteDevServerConfigurationProperties getDevServerProperties() {
+    return devServerProperties;
+  }
+
   public Optional<String> resolveResource(String resource) {
     if (properties.mode() == Mode.DEV) {
       if (devServerProperties.host() == null) {
@@ -60,6 +68,23 @@ public class ViteLinkResolver {
       builder.append(bundledPath);
       return Optional.of(builder.toString());
     }
+  }
+
+  /**
+   * Resolves a path that is already a built asset path (e.g. from a manifest entry's {@code css} array
+   * or {@code file} field). These paths don't need to be looked up in the manifest again, they just
+   * need the context path prepended.
+   */
+  public String resolveBuiltAssetPath(String builtPath) {
+    StringBuilder builder = new StringBuilder();
+    if (properties.buildModeContextPath() != null) {
+      builder.append(properties.buildModeContextPath())
+          .append("/");
+    } else {
+      builder.append("/");
+    }
+    builder.append(builtPath);
+    return builder.toString();
   }
 
   public ManifestEntry getManifestEntry(String resource) {
