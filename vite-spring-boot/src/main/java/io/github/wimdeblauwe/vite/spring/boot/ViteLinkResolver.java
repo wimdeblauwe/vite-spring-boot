@@ -27,6 +27,14 @@ public class ViteLinkResolver {
     this.manifestReader = manifestReader;
   }
 
+  public ViteConfigurationProperties getProperties() {
+    return properties;
+  }
+
+  public ViteDevServerConfigurationProperties getDevServerProperties() {
+    return devServerProperties;
+  }
+
   public Optional<String> resolveResource(String resource) {
     if (properties.mode() == Mode.DEV) {
       if (devServerProperties.host() == null) {
