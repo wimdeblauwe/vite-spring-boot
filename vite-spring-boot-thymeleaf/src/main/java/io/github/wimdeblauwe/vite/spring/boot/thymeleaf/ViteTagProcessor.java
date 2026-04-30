@@ -1,10 +1,12 @@
 package io.github.wimdeblauwe.vite.spring.boot.thymeleaf;
 
+import io.github.wimdeblauwe.vite.spring.boot.ViteConfigurationProperties.Mode;
 import io.github.wimdeblauwe.vite.spring.boot.ViteLinkResolver;
 import io.github.wimdeblauwe.vite.spring.boot.ViteManifestReader.ManifestEntry;
 import io.github.wimdeblauwe.vite.spring.boot.thymeleaf.TagFactory.ScriptTags;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.slf4j.Logger;
@@ -67,6 +69,8 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
     private final TagFactory tagFactory;
     private final List<ITemplateEvent> htmlEntries = new ArrayList<>();
     private final Set<String> references = new HashSet<>();
+    private final Set<String> visitedManifestKeys = new HashSet<>();
+    private final Set<String> collectedCssFiles = new LinkedHashSet<>();
 
     public ViteModelVisitor(IModelFactory modelFactory) {
       this.tagFactory = new TagFactory(modelFactory);
@@ -93,61 +97,64 @@ public class ViteTagProcessor extends AbstractElementModelProcessor {
 
     private void handleValue(String value) {
       LOGGER.debug("resolving {}", value);
-      if (isCssPath(value)) {
-        linkResolver.resolveResource(value)
-            .ifPresent(resource -> {
-              executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resource)));
+
+      // In DEV mode, vite serves modules and resolves imports itself — emit a single tag for
+      // the entry and let the dev server handle the rest of the import graph.
+      if (linkResolver.getProperties().mode() == Mode.DEV) {
+        linkResolver.resolveResource(value).ifPresent(resource -> {
+          if (isCssPath(value)) {
+            executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resource)));
+          } else {
+            executeIfNotOutputtedYet(value, () -> {
+              ScriptTags scriptTags = tagFactory.generateScriptTags(resource);
+              scriptTags.addTagsTo(htmlEntries);
             });
-      } else {
-        executeIfNotOutputtedYet(value, () -> {
-          linkResolver.resolveResource(value)
-              .ifPresent(resource -> {
-                ScriptTags scriptTags = tagFactory.generateScriptTags(resource);
-                scriptTags.addTagsTo(htmlEntries);
-              });
+          }
         });
+        return;
       }
-      ManifestEntry manifestEntry = linkResolver.getManifestEntry(value);
-      if (manifestEntry != null) {
-        if (manifestEntry.css() != null) {
-          for (String linkedCss : manifestEntry.css()) {
-            linkResolver.resolveResource(linkedCss)
-                    .ifPresent(resource -> {
-                      executeIfNotOutputtedYet(value, () -> htmlEntries.add(tagFactory.generateCssLinkTag(resource)));
-                    });
-          }
-        }
 
-        if (manifestEntry.imports() != null) {
-          for (String importedResource : manifestEntry.imports()) {
-            handleImportedResource(importedResource);
-          }
-        }
+      // In BUILD mode, only emit a <script> tag for the entry chunk. The browser follows ESM
+      // imports automatically, so emitting <script> tags for imported chunks causes duplicate
+      // downloads (and shows unrelated chunks for sibling entries that happen to share a
+      // dependency). CSS still has to be linked explicitly because Vite collects styles from
+      // the entire import graph at build time.
+      ManifestEntry startEntry = linkResolver.getManifestEntry(value);
+      if (startEntry == null) {
+        LOGGER.warn("Could not resolve resource {} - Did you add it to vite.config.js?", value);
+        return;
       }
-    }
 
-    private void handleImportedResource(String importedResource) {
-      LOGGER.debug("Handling imported resource: {}", importedResource);
-      ManifestEntry manifestEntry = linkResolver.getManifestEntry(importedResource);
-      String file = "/" + manifestEntry.file();
-      if (isCssPath(file)) {
-        executeIfNotOutputtedYet(file, () -> htmlEntries.add(tagFactory.generateCssLinkTag(file)));
-      } else {
-        executeIfNotOutputtedYet(file, () -> {
-          ScriptTags scriptTags = tagFactory.generateScriptTags(file);
+      collectCssFromImportGraph(value);
+
+      if (startEntry.file() != null && !isCssPath(startEntry.file())) {
+        String entryUrl = linkResolver.resolveBuiltAssetPath(startEntry.file());
+        executeIfNotOutputtedYet(value, () -> {
+          ScriptTags scriptTags = tagFactory.generateScriptTags(entryUrl);
           scriptTags.addTagsTo(htmlEntries);
         });
       }
 
-      if (manifestEntry.css() != null) {
-        for (String linkedCss : manifestEntry.css()) {
-          executeIfNotOutputtedYet(linkedCss, () -> htmlEntries.add(tagFactory.generateCssLinkTag(linkedCss)));
-        }
+      for (String cssFile : collectedCssFiles) {
+        String cssUrl = linkResolver.resolveBuiltAssetPath(cssFile);
+        executeIfNotOutputtedYet(cssFile, () -> htmlEntries.add(tagFactory.generateCssLinkTag(cssUrl)));
       }
+    }
 
-      if (manifestEntry.imports() != null) {
-        for (String nestedImportedResource : manifestEntry.imports()) {
-          handleImportedResource(nestedImportedResource);
+    private void collectCssFromImportGraph(String manifestKey) {
+      if (!visitedManifestKeys.add(manifestKey)) {
+        return;
+      }
+      ManifestEntry entry = linkResolver.getManifestEntry(manifestKey);
+      if (entry == null) {
+        return;
+      }
+      if (entry.css() != null) {
+        collectedCssFiles.addAll(entry.css());
+      }
+      if (entry.imports() != null) {
+        for (String importedKey : entry.imports()) {
+          collectCssFromImportGraph(importedKey);
         }
       }
     }
