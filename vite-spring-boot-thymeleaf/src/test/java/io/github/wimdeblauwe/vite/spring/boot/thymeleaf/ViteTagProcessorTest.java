@@ -73,4 +73,44 @@ class ViteTagProcessorTest {
             .contains("<script type=\"module\" src=\"/assets/ButtonBar-8UAhfTQ4.js\"></script>")
             .containsOnlyOnce("<script type=\"module\" src=\"/assets/client-3T5L5Tgj.js\">");
   }
+
+  @Test
+  void shouldApplyBuildModeContextPathToImportedChunks() throws Exception {
+    TemplateEngine engineWithContextPath = createTemplateEngineWithContextPath("/myapp");
+    String result = engineWithContextPath.process("example", new Context());
+
+    assertThat(result)
+            // entry chunk gets the context path (already worked)
+            .contains("<script type=\"module\" src=\"/myapp/assets/ButtonBar-8UAhfTQ4.js\"></script>")
+            // imported chunks must also get the context path (regression for missing prefix)
+            .contains("<script type=\"module\" src=\"/myapp/assets/client-3T5L5Tgj.js\">")
+            .doesNotContain("<script type=\"module\" src=\"/assets/client-3T5L5Tgj.js\">");
+  }
+
+  private TemplateEngine createTemplateEngineWithContextPath(String contextPath) throws Exception {
+    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+    templateResolver.setPrefix("/templates/");
+    templateResolver.setSuffix(".html");
+    templateResolver.setTemplateMode(TemplateMode.HTML);
+    templateResolver.setCharacterEncoding("UTF-8");
+
+    ViteConfigurationProperties properties = new ViteConfigurationProperties(
+            ViteConfigurationProperties.Mode.BUILD,
+            new ClassPathResource("vite-manifest-example.json"),
+            null,
+            "static",
+            contextPath,
+            null);
+    ViteDevServerConfigurationProperties devServerProps = new ViteDevServerConfigurationProperties("localhost", 5431);
+
+    ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    ViteManifestReader manifestReader = new ViteManifestReader(objectMapper, properties);
+    manifestReader.init();
+    ViteLinkResolver linkResolver = new ViteLinkResolver(properties, devServerProps, manifestReader);
+
+    SpringTemplateEngine engine = new SpringTemplateEngine();
+    engine.setTemplateResolver(templateResolver);
+    engine.addDialect(new ViteDialect(properties, devServerProps, linkResolver));
+    return engine;
+  }
 }
